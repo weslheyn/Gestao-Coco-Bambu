@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Gestão de Falhas Operacionais</title><link rel="stylesheet" href="falhas.css"></head>
+<body><a href="../../index.html" style="position:fixed;right:18px;bottom:18px;z-index:60;background:#7b0d2d;color:white;padding:10px 14px;border-radius:10px;text-decoration:none;font:700 12px system-ui">← Gestão Coco Bambu</a>
+<aside class="sidebar">
+  <div class="brand"><div class="brandmark">CB</div><div><b>Gestão</b><span>Coco Bambu</span></div></div>
+  <nav>
+    <button class="nav active" data-view="central">⌂ <span>Central da Semana</span></button>
+    <button class="nav" data-view="ocorrencias">⚠ <span>Ocorrências</span></button>
+    <button class="nav" data-view="acoes">✓ <span>Planos de Ação</span></button>
+    <button class="nav" data-view="reunioes">◫ <span>Reuniões</span></button>
+    <button class="nav" data-view="relatorios">▥ <span>Análises e Relatórios</span></button>
+  </nav>
+  <div class="side-foot">Gestão de Falhas<br><small>Versão inicial</small></div>
+</aside>
+<main>
+<header class="topbar">
+  <button id="menuBtn" class="iconbtn">☰</button>
+  <div><h1 id="pageTitle">Central da Semana</h1><p id="pageSub">Visão gerencial das falhas operacionais</p></div>
+  <div class="top-actions"><select id="periodo"><option>Esta semana</option><option>Hoje</option><option>Este mês</option></select><select><option>Todas as unidades</option></select><div class="avatar">WG</div></div>
+</header>
+<section id="app"></section>
+</main>
+<div id="modal" class="modal hidden"><div class="modal-card"><button class="close" onclick="closeModal()">×</button><div id="modalBody"></div></div></div>
+<script src="falhas.js"></script>
+</body></html>
