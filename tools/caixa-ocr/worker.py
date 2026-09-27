@@ -78,10 +78,15 @@ def main():
         for psm in (6,11,12,4,3):
             text=pytesseract.image_to_string(im,lang="por+eng",config=f"--oem 3 --psm {psm}")
             fields=parse(text)
-            candidate={"score":score(fields),"region":region_name,"variant":variant_name,"psm":psm,"campos":fields}
+            base=score(fields)
+            bonus=0
+            if region_name=="receipt_header" and (fields["numero_recibo"] or fields["valor_candidatos"]): bonus+=4
+            if region_name=="service_box" and fields["data_candidatos"]: bonus+=3
+            if region_name=="paid_stamp" and fields["marcado_pago"]: bonus+=4
+            candidate={"score":base+bonus,"region":region_name,"variant":variant_name,"psm":psm,"campos":fields}
             if best is None or candidate["score"]>best["score"]: best=candidate
     # O texto bruto existe apenas em memória durante cada tentativa e nunca é persistido.
-    result={"ok":True,"engine":"tesseract-native","strategy":"deskew-regions-multi-pass","quality_score":best["score"],"campos":best["campos"]}
+    result={"ok":True,"engine":"tesseract-native","strategy":"receipt-template-v1","quality_score":best["score"],"campos":best["campos"]}
     with open(out,"w",encoding="utf-8") as f: json.dump(result,f,ensure_ascii=False,indent=2)
     print(json.dumps(result,ensure_ascii=False))
 if __name__=="__main__": main()
