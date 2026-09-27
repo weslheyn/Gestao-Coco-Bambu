@@ -33,7 +33,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y tesseract-ocr tesseract-ocr-por
-          python -m pip install --disable-pip-version-check pillow pytesseract
+          python -m pip install --disable-pip-version-check pillow pytesseract opencv-python-headless
       - name: Processar comprovante
         env:
           OCR_OUTPUT: ocr-result.json
