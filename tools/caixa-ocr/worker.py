@@ -2,6 +2,8 @@ import os, re, json, urllib.request
 from datetime import datetime
 import pytesseract
 from PIL import Image, ImageOps, ImageEnhance, ImageFilter
+import cv2
+import numpy as np
 
 def norm_money(s):
     s=s.replace("R$","").replace(" ","").replace(".","").replace(",",".")
@@ -30,6 +32,26 @@ def parse(text):
                 break
     return {"marcado_pago":pago,"valor_candidatos":vals,"data_candidatos":list(dict.fromkeys(dates)),"numero_recibo":receipt}
 
+def deskew(img):
+    a=np.array(ImageOps.grayscale(img))
+    _,th=cv2.threshold(a,0,255,cv2.THRESH_BINARY_INV+cv2.THRESH_OTSU)
+    pts=np.column_stack(np.where(th>0))
+    if len(pts)<50: return img
+    angle=cv2.minAreaRect(pts)[-1]
+    angle=-(90+angle) if angle < -45 else -angle
+    if abs(angle)>15: return img
+    h,w=a.shape
+    m=cv2.getRotationMatrix2D((w/2,h/2),angle,1.0)
+    out=cv2.warpAffine(a,m,(w,h),flags=cv2.INTER_CUBIC,borderMode=cv2.BORDER_REPLICATE)
+    return Image.fromarray(out)
+
+def regions(img):
+    w,h=img.size
+    yield "full",img
+    yield "top",img.crop((0,0,w,int(h*.45)))
+    yield "middle",img.crop((0,int(h*.20),w,int(h*.80)))
+    yield "bottom",img.crop((0,int(h*.55),w,h))
+
 def variants(img):
     g=ImageOps.grayscale(img)
     g=ImageOps.autocontrast(g)
@@ -49,16 +71,17 @@ def main():
     out=os.environ.get("OCR_OUTPUT","ocr-result.json")
     if not image_url: raise SystemExit("OCR_IMAGE_URL ausente")
     urllib.request.urlretrieve(image_url,"/tmp/caixa-input")
-    img=Image.open("/tmp/caixa-input")
+    img=deskew(Image.open("/tmp/caixa-input"))
     best=None
-    for variant_name,im in variants(img):
-        for psm in (6,11,12,4):
-            text=pytesseract.image_to_string(im,lang="por",config=f"--oem 3 --psm {psm}")
+    for region_name,region in regions(img):
+      for variant_name,im in variants(region):
+        for psm in (6,11,12,4,3):
+            text=pytesseract.image_to_string(im,lang="por+eng",config=f"--oem 3 --psm {psm}")
             fields=parse(text)
-            candidate={"score":score(fields),"variant":variant_name,"psm":psm,"campos":fields}
+            candidate={"score":score(fields),"region":region_name,"variant":variant_name,"psm":psm,"campos":fields}
             if best is None or candidate["score"]>best["score"]: best=candidate
     # O texto bruto existe apenas em memória durante cada tentativa e nunca é persistido.
-    result={"ok":True,"engine":"tesseract-native","strategy":"multi-pass","quality_score":best["score"],"campos":best["campos"]}
+    result={"ok":True,"engine":"tesseract-native","strategy":"deskew-regions-multi-pass","quality_score":best["score"],"campos":best["campos"]}
     with open(out,"w",encoding="utf-8") as f: json.dump(result,f,ensure_ascii=False,indent=2)
     print(json.dumps(result,ensure_ascii=False))
 if __name__=="__main__": main()
