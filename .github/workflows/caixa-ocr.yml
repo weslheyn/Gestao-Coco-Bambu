@@ -2,8 +2,8 @@ name: Caixa OCR Gratuito
 on:
   workflow_dispatch:
     inputs:
-      image_url:
-        description: "URL assinada temporária do comprovante"
+      lancamento_id:
+        description: "ID do lançamento do Caixa"
         required: true
         type: string
 permissions:
@@ -14,6 +14,21 @@ jobs:
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
+      - name: Preparar comprovante privado
+        env:
+          LANCAMENTO_ID: ${{ inputs.lancamento_id }}
+          SUPABASE_URL: https://eujcktievzdhfjpfpuql.supabase.co
+          SUPABASE_PUBLISHABLE_KEY: sb_publishable_RbcBblBNvOvqGOMfhvvcnQ_JCSo0MtB
+        run: |
+          python - <<'PY'
+          import os, json, urllib.request
+          url=os.environ["SUPABASE_URL"]+"/functions/v1/caixa-ocr-dispatch"
+          body=json.dumps({"lancamento_id":os.environ["LANCAMENTO_ID"]}).encode()
+          req=urllib.request.Request(url,data=body,headers={"Content-Type":"application/json","Authorization":"Bearer "+os.environ["SUPABASE_PUBLISHABLE_KEY"]},method="POST")
+          with urllib.request.urlopen(req) as r: data=json.load(r)
+          if not data.get("ok") or not data.get("signed_url"): raise SystemExit("Falha ao preparar comprovante")
+          with open(os.environ["GITHUB_ENV"],"a") as f: f.write("OCR_IMAGE_URL="+data["signed_url"]+"\n")
+          PY
       - name: Instalar Tesseract português
         run: |
           sudo apt-get update
@@ -21,7 +36,6 @@ jobs:
           python -m pip install --disable-pip-version-check pillow pytesseract
       - name: Processar comprovante
         env:
-          OCR_IMAGE_URL: ${{ inputs.image_url }}
           OCR_OUTPUT: ocr-result.json
         run: python tools/caixa-ocr/worker.py
       - name: Publicar somente resultado estruturado
