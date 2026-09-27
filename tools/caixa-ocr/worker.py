@@ -13,7 +13,7 @@ def parse(text):
     vals=[]
     for m in re.finditer(r"(?:R\$\s*)?\d{1,4}(?:\.\d{3})*,\d{2}",text):
         v=norm_money(m.group(0))
-        if v and 0<v<10000 and v not in vals: vals.append(v)
+        if v and 10 <= v < 10000 and v not in vals: vals.append(v)
     dates=[]
     for m in re.finditer(r"\b(\d{1,2})[\/.-](\d{1,2})[\/.-](\d{2,4})\b",text):
         d,mo,y=m.groups(); y=int(y); y=y+2000 if y<100 else y
@@ -23,7 +23,7 @@ def parse(text):
     patterns=[r"(?:RECIBO|RECIB0)\s*(?:N[º°O.]?)?\s*[:#-]?\s*(\d{1,10})",r"N[º°O.]?\s*[:#-]?\s*(\d{1,10})"]
     for p in patterns:
         m=re.search(p,text,re.I)
-        if m: receipt=m.group(1); break
+        if m:\n            candidate=m.group(1)\n            if len(candidate) >= 2:\n                receipt=candidate; break
     return {"marcado_pago":pago,"valor_candidatos":vals,"data_candidatos":list(dict.fromkeys(dates)),"numero_recibo":receipt}
 
 def variants(img):
