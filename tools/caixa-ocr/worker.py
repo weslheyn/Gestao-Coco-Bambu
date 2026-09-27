@@ -23,7 +23,11 @@ def parse(text):
     patterns=[r"(?:RECIBO|RECIB0)\s*(?:N[º°O.]?)?\s*[:#-]?\s*(\d{1,10})",r"N[º°O.]?\s*[:#-]?\s*(\d{1,10})"]
     for p in patterns:
         m=re.search(p,text,re.I)
-        if m:\n            candidate=m.group(1)\n            if len(candidate) >= 2:\n                receipt=candidate; break
+        if m:
+            candidate=m.group(1)
+            if len(candidate) >= 2:
+                receipt=candidate
+                break
     return {"marcado_pago":pago,"valor_candidatos":vals,"data_candidatos":list(dict.fromkeys(dates)),"numero_recibo":receipt}
 
 def variants(img):
