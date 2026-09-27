@@ -1,0 +1,32 @@
+name: Caixa OCR Gratuito
+on:
+  workflow_dispatch:
+    inputs:
+      image_url:
+        description: "URL assinada temporária do comprovante"
+        required: true
+        type: string
+permissions:
+  contents: read
+jobs:
+  ocr:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Instalar Tesseract português
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y tesseract-ocr tesseract-ocr-por
+          python -m pip install --disable-pip-version-check pillow pytesseract
+      - name: Processar comprovante
+        env:
+          OCR_IMAGE_URL: ${{ inputs.image_url }}
+          OCR_OUTPUT: ocr-result.json
+        run: python tools/caixa-ocr/worker.py
+      - name: Publicar somente resultado estruturado
+        uses: actions/upload-artifact@v4
+        with:
+          name: caixa-ocr-result
+          path: ocr-result.json
+          retention-days: 1
