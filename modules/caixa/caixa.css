@@ -120,3 +120,10 @@ body{padding-left:200px}
 .cx-side a.active .ico{color:#f0bd58!important}
 .cx-side a.active:before{background:#dfaa42!important}
 }
+
+/* Zoom do comprovante — Caixa */
+.proof-img{cursor:zoom-in}
+.proof-zoom[hidden]{display:none}
+.proof-zoom{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.88);display:flex;align-items:center;justify-content:center;padding:28px}
+.proof-zoom img{max-width:94vw;max-height:94vh;object-fit:contain;background:#fff;box-shadow:0 10px 40px rgba(0,0,0,.45)}
+.proof-close{position:fixed;right:24px;top:18px;width:44px;height:44px;border:0;border-radius:50%;background:#fff;color:#111;font-size:30px;line-height:1;cursor:pointer;z-index:10000}
