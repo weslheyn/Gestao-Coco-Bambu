@@ -106,3 +106,17 @@ body{padding-left:200px}
 .cx-side a.active:before{background:#e1ad43!important;width:3px!important}
 .cx-side .sec{margin-top:17px!important}
 }
+
+@media(min-width:1101px){
+body{padding-left:200px}
+.cx-shell{display:block;min-height:100vh}
+.cx-side{position:fixed!important;left:0;top:0;bottom:0;width:200px;height:100vh!important;z-index:50;overflow-y:auto!important;overflow-x:hidden!important}
+.cx-main{min-height:100vh}
+.cx-brand{height:106px!important;margin:0 -10px 8px!important;background:transparent!important;border:0!important}
+.cx-brand img{display:none!important}
+.cx-brand:before{content:"COCO BAMBU";font-family:Georgia,serif;font-size:21px;font-weight:800;letter-spacing:.6px;color:#e2b654}
+.cx-brand:after{content:"RESTAURANTE";position:static!important;width:auto!important;height:auto!important;background:none!important;font-size:7px;font-weight:700;letter-spacing:4px;color:#d5a84d;margin-top:7px}
+.cx-side .ico{font-family:Arial,sans-serif;font-weight:400;color:#eee2dc!important}
+.cx-side a.active .ico{color:#f0bd58!important}
+.cx-side a.active:before{background:#dfaa42!important}
+}
