@@ -5,3 +5,23 @@
 
 /* referência visual aprovada 26/09 */
 .side{width:222px;padding:0 15px 18px;background:#fff}.main{margin-left:222px;padding:0 18px 28px}.brand-panel{height:126px;margin:0 -15px 12px;background:#fff;border-bottom:1px solid #e8e3dc;display:flex;align-items:center;justify-content:center}.brand-logo{width:178px;height:108px;background-image:url("https://www.nicepng.com/png/detail/497-4975041_incio-coco-bambu-logo-png.png");background-repeat:no-repeat;background-position:center;background-size:contain}.top{height:68px}.searchbox{max-width:550px;border-radius:18px;height:40px}.unit-select{border-radius:18px;padding:10px 16px}.hero{height:133px;padding:24px 22px;border-radius:10px;background-image:linear-gradient(90deg,rgba(250,239,219,.98) 0%,rgba(250,239,219,.86) 29%,rgba(250,239,219,.18) 56%,rgba(37,7,4,.28) 100%),url("https://cocobambu.com/web/image/1120-d71b70b1/SALA%CC%83O%20CANOA%20-%20CBAC%20%20%2821%29.webp");background-size:cover;background-position:center;border:1px solid #eee4d8}.hero:after{display:none}.hero-accent{display:block;width:36px;height:3px;background:#dc9619;margin-bottom:13px}.hero h1{font-size:31px;font-weight:700;letter-spacing:-1.1px;color:#111}.hero h1 span{color:#94122e}.hero p{font-size:13px;color:#3f464d}.hero-note{padding-right:18px;font-size:14px}.hero-note b{font-size:16px}.kpis{gap:10px;margin-top:13px}.kpi{min-height:112px;border-radius:10px;padding:16px 20px}.kpi-icon{font-size:31px;width:55px}.kpi strong{font-size:29px}.attention{border-radius:10px;padding:12px;margin-top:13px}.attention-grid{gap:6px}.attention-item{min-height:78px;border-radius:8px}.modules-wrap{margin-top:15px}.modules{gap:10px}.module{min-height:74px;border-radius:9px;padding:10px}.module.disabled{opacity:1}.module-icon{width:54px;height:54px;border-radius:8px;font-size:26px}.module b{font-size:12px}.module span{font-size:10px}.soon{display:none}.bottom{margin-top:11px;gap:10px}.panel{border-radius:9px;padding:11px}.unit-foot{background:#f7f1e8;border:0;border-radius:10px;padding:12px;margin-top:18px}.side a{font-size:12px}.side a.active{background:#f4e8e7;color:#8c151d}.nav-section{font-size:9px}
+
+/* Sidebar global — padrão aprovado do módulo Caixa 30/09/2026 */
+@media(min-width:781px){
+.side{width:200px;padding:0 10px 24px;background:radial-gradient(circle at 20% 5%,rgba(113,14,38,.20),transparent 24%),linear-gradient(180deg,#190b0d 0%,#110d0d 58%,#190f0c 100%);border-right:1px solid rgba(255,255,255,.07);box-shadow:8px 0 28px rgba(24,8,10,.08);scrollbar-width:none}
+.side::-webkit-scrollbar{display:none}
+.main{margin-left:200px}
+.brand-panel{height:106px;margin:0 -10px 8px;background:transparent;border:0;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.brand-panel:before{content:"COCO BAMBU";font-family:Georgia,serif;font-size:21px;font-weight:800;letter-spacing:.6px;color:#e2b654}
+.brand-panel:after{content:"RESTAURANTE";font-size:7px;font-weight:700;letter-spacing:4px;color:#d5a84d;margin-top:7px}
+.brand-logo{display:none}
+.nav-section{margin:17px 10px 7px;color:#a99d99;font-size:8px;font-weight:700;letter-spacing:2.25px;text-transform:uppercase}
+.side a{position:relative;min-height:39px;margin:2px 0;padding:9px 12px;border-radius:8px;color:#e8e0dc;font-size:11.5px;font-weight:500;gap:11px}
+.side a:hover{background:rgba(255,255,255,.055);color:#fff}
+.side a.active{color:#fff;background:linear-gradient(90deg,#8d0c30 0%,#760b29 100%);box-shadow:inset 0 0 0 1px rgba(255,255,255,.035),0 5px 16px rgba(79,5,27,.18)}
+.side a.active:before{content:"";position:absolute;left:-10px;top:8px;bottom:8px;width:3px;border-radius:0 3px 3px 0;background:#dfaa42}
+.nav-ico{width:21px;color:#eee2dc;font-size:14px}
+.side a.active .nav-ico{color:#f0bd58}
+.unit-foot{border-top:1px solid rgba(255,255,255,.08);color:#eee2dc}
+.unit-foot small{color:#a99d99}
+}
