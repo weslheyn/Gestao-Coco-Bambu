@@ -153,3 +153,27 @@ body{padding-left:200px}
 .workspace.vales-mode .collect-kpis{grid-template-columns:repeat(4,minmax(0,1fr))}
 .workspace.vales-mode .rh-kpis{grid-template-columns:repeat(3,minmax(0,1fr))}
 @media(max-width:1100px){.workspace.vales-mode .collect-overview{grid-template-columns:repeat(3,1fr)}.workspace.vales-mode .collect-layout{grid-template-columns:1fr}.workspace.vales-mode .collect-list{max-height:none}}
+
+/* Ajuste fino Vales: referência 1536px */
+.workspace.vales-mode .collect-page{max-width:none;padding:0 14px 18px}
+.workspace.vales-mode .collect-sub{margin-bottom:12px}
+.workspace.vales-mode .collect-overview{gap:12px;margin:12px 0 16px}
+.workspace.vales-mode .collect-overview>div{min-height:96px;padding:16px 18px}
+.workspace.vales-mode .collect-layout{grid-template-columns:40% minmax(0,60%);gap:20px;padding:0;min-height:560px}
+.workspace.vales-mode .collect-head,.workspace.vales-mode .collect-title{min-height:44px;margin-bottom:8px}
+.workspace.vales-mode .collect-head h3{font-size:18px}
+.workspace.vales-mode .collect-title h2{font-size:25px}
+.workspace.vales-mode .collect-item{min-height:118px;padding:16px 18px;margin-bottom:10px}
+.workspace.vales-mode .collect-item b{font-size:16px}
+.workspace.vales-mode .collect-item strong{font-size:15px}
+.workspace.vales-mode .collect-kpis>div{min-height:64px;padding:12px 14px}
+.workspace.vales-mode .rh-kpis>span{min-height:58px;padding:12px 14px}
+.workspace.vales-mode .collect-table-title{margin-top:22px;margin-bottom:10px}
+.workspace.vales-mode .collect-table-title h3{font-size:18px}
+.workspace.vales-mode .collect-table-title input{width:250px}
+.workspace.vales-mode .collect-table{overflow-x:hidden}
+.workspace.vales-mode .collect-table table{width:100%;min-width:0;table-layout:auto;font-size:10px}
+.workspace.vales-mode .collect-table th{padding:10px 8px;white-space:normal}
+.workspace.vales-mode .collect-table td{padding:10px 8px}
+.workspace.vales-mode .collect-actions{margin-top:14px;justify-content:flex-start}
+@media(max-width:1250px){.workspace.vales-mode .collect-table{overflow-x:auto}.workspace.vales-mode .collect-table table{min-width:760px}.workspace.vales-mode .collect-layout{grid-template-columns:38% minmax(0,62%)}}
