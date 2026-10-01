@@ -289,3 +289,12 @@ body{padding-left:200px}
 .workspace.vales-mode .collect-kpis b{font-size:11px!important;line-height:1.05!important}
 .workspace.vales-mode .rh-kpis b{font-size:15px!important;line-height:1!important}
 }
+
+/* Harmonização final: cards da lista e detalhes com mesma escala visual */
+@media(min-width:1101px){
+.workspace.vales-mode .collect-item{height:54px!important;min-height:54px!important;padding:7px 10px!important;box-sizing:border-box!important}
+.workspace.vales-mode .collect-item b{font-size:12px!important;line-height:1.1!important}.workspace.vales-mode .collect-item strong{font-size:11px!important;line-height:1.1!important}.workspace.vales-mode .collect-item span,.workspace.vales-mode .collect-item em,.workspace.vales-mode .collect-item i{font-size:8px!important;line-height:1.1!important}
+.workspace.vales-mode .collect-kpis{height:54px!important}.workspace.vales-mode .collect-kpis>div{height:54px!important;min-height:54px!important;padding:7px 10px!important}
+.workspace.vales-mode .rh-kpis{height:54px!important;margin-top:4px!important}.workspace.vales-mode .rh-kpis>span{height:54px!important;min-height:54px!important;padding:7px 10px!important}
+.workspace.vales-mode .collect-kpis small,.workspace.vales-mode .rh-kpis small,.workspace.vales-mode .rh-kpis em{font-size:9px!important;line-height:1.1!important}.workspace.vales-mode .collect-kpis b{font-size:12px!important;line-height:1.1!important;margin-top:4px!important}.workspace.vales-mode .rh-kpis b{font-size:16px!important;line-height:1!important;margin-right:4px!important}
+}
