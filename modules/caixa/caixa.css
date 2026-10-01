@@ -263,3 +263,18 @@ body{padding-left:200px}
 .workspace.vales-mode .collect-kpis>div{min-height:46px;padding:7px 9px}.workspace.vales-mode .collect-kpis small{font-size:8px}.workspace.vales-mode .collect-kpis b{font-size:11px}.workspace.vales-mode .rh-kpis>span{min-height:40px;padding:6px 9px}.workspace.vales-mode .rh-kpis b{font-size:15px}.workspace.vales-mode .rh-kpis small,.workspace.vales-mode .rh-kpis em{font-size:8px}
 .workspace.vales-mode .collect-table-title{margin-top:10px;margin-bottom:6px}.workspace.vales-mode .collect-table-title h3{font-size:15px}.workspace.vales-mode .collect-table-title input{padding:7px 9px}.workspace.vales-mode .collect-table th{padding:7px 6px}.workspace.vales-mode .collect-table td{padding:6px}.workspace.vales-mode .collect-actions{margin-top:8px}
 }
+
+/* Ajuste perceptível 1365x768: reduzir altura, preservar leitura */
+@media(min-width:1101px) and (max-height:900px){
+.cx-content{padding-bottom:10px}
+.hero{height:76px!important;padding:8px 14px!important}.hero-icon{width:46px!important;height:46px!important;min-width:46px!important;font-size:21px!important}.hero h1{font-size:23px!important}.hero p{font-size:10px!important;margin-top:2px!important}
+.period{height:36px!important}.period button{height:28px!important;min-width:100px!important}.datebox,.export{padding:6px 12px!important}
+.cards{gap:7px!important}.card{min-height:62px!important;padding:6px 9px!important}.ci{width:36px!important;height:36px!important;min-width:36px!important;font-size:17px!important;margin-right:8px!important}.card small{font-size:9px!important}.card em{font-size:8px!important;margin:1px 0!important}.card strong{font-size:16px!important}.month-title{font-size:15px!important;margin:6px 0 4px!important}
+.workspace{margin-top:7px!important}.tabs button{padding:8px 5px!important}
+.workspace.vales-mode .collect-sub{height:34px!important;margin-bottom:4px!important}.workspace.vales-mode .collect-sub b,.workspace.vales-mode .collect-sub span{padding:7px 15px!important;font-size:12px!important}
+.workspace.vales-mode .collect-overview{margin:4px 0 7px!important;gap:7px!important}.workspace.vales-mode .collect-overview>div{min-height:54px!important;padding:6px 9px!important}.workspace.vales-mode .collect-overview small{font-size:9px!important}.workspace.vales-mode .collect-overview b{font-size:15px!important}
+.workspace.vales-mode .collect-layout{gap:12px!important;min-height:330px!important}.workspace.vales-mode .collect-head,.workspace.vales-mode .collect-title{min-height:28px!important;margin-bottom:3px!important}.workspace.vales-mode .collect-head h3{font-size:14px!important}.workspace.vales-mode .collect-title h2{font-size:18px!important}
+.workspace.vales-mode .collect-item{min-height:50px!important;padding:5px 8px!important;margin-bottom:4px!important}
+.workspace.vales-mode .collect-kpis>div{min-height:40px!important;padding:5px 8px!important}.workspace.vales-mode .rh-kpis{margin-top:4px!important}.workspace.vales-mode .rh-kpis>span{min-height:34px!important;padding:4px 8px!important}
+.workspace.vales-mode .collect-table-title{margin-top:7px!important;margin-bottom:4px!important}.workspace.vales-mode .collect-table-title input{padding:6px 8px!important}.workspace.vales-mode .collect-table th{padding:6px 5px!important}.workspace.vales-mode .collect-table td{padding:5px!important}.workspace.vales-mode .collect-actions{margin-top:6px!important}
+}
