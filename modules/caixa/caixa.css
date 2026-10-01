@@ -253,3 +253,13 @@ body{padding-left:200px}
 .workspace.vales-mode .rh-kpis>span{min-height:38px;padding:5px 9px}
 .workspace.vales-mode .rh-kpis b{font-size:15px;line-height:1}
 .workspace.vales-mode .rh-kpis small,.workspace.vales-mode .rh-kpis em{font-size:7px;line-height:1.05}
+
+/* Equilíbrio desktop: leitura confortável + máximo conteúdo antes do scroll */
+@media(min-width:1101px){
+.hero{height:88px;padding:10px 16px}.hero-icon{width:52px;height:52px;font-size:24px}.hero h1{font-size:25px}.period{height:40px}.period button{height:30px}.card{min-height:72px;padding:8px 10px}.ci{width:42px;height:42px;min-width:42px;font-size:19px}.month-title{margin:8px 0 5px}.workspace{margin-top:10px}
+.workspace.vales-mode .collect-page{padding:0 8px 10px}.workspace.vales-mode .collect-sub{height:38px;margin-bottom:6px}.workspace.vales-mode .collect-overview{gap:8px;margin:6px 0 10px}.workspace.vales-mode .collect-overview>div{min-height:64px;padding:8px 11px}.workspace.vales-mode .collect-overview small{font-size:10px}.workspace.vales-mode .collect-overview b{font-size:16px}
+.workspace.vales-mode .collect-layout{grid-template-columns:35% minmax(0,65%);gap:14px;min-height:390px}.workspace.vales-mode .collect-head,.workspace.vales-mode .collect-title{min-height:32px;margin-bottom:5px}.workspace.vales-mode .collect-head h3{font-size:15px}.workspace.vales-mode .collect-title h2{font-size:20px}
+.workspace.vales-mode .collect-item{min-height:58px;padding:7px 10px;margin-bottom:5px}.workspace.vales-mode .collect-item b{font-size:12px}.workspace.vales-mode .collect-item strong{font-size:11px}.workspace.vales-mode .collect-item span,.workspace.vales-mode .collect-item em,.workspace.vales-mode .collect-item i{font-size:8px}
+.workspace.vales-mode .collect-kpis>div{min-height:46px;padding:7px 9px}.workspace.vales-mode .collect-kpis small{font-size:8px}.workspace.vales-mode .collect-kpis b{font-size:11px}.workspace.vales-mode .rh-kpis>span{min-height:40px;padding:6px 9px}.workspace.vales-mode .rh-kpis b{font-size:15px}.workspace.vales-mode .rh-kpis small,.workspace.vales-mode .rh-kpis em{font-size:8px}
+.workspace.vales-mode .collect-table-title{margin-top:10px;margin-bottom:6px}.workspace.vales-mode .collect-table-title h3{font-size:15px}.workspace.vales-mode .collect-table-title input{padding:7px 9px}.workspace.vales-mode .collect-table th{padding:7px 6px}.workspace.vales-mode .collect-table td{padding:6px}.workspace.vales-mode .collect-actions{margin-top:8px}
+}
