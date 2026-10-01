@@ -223,3 +223,23 @@ body{padding-left:200px}
 .workspace.vales-mode .collect-item b{font-size:12px;line-height:1}
 .workspace.vales-mode .collect-item strong{font-size:11px;line-height:1}
 .workspace.vales-mode .collect-item span,.workspace.vales-mode .collect-item em,.workspace.vales-mode .collect-item i{font-size:7px;line-height:1.05;margin-top:0}
+
+/* Caixa mais compacto - cabeçalho, período e resumos */
+@media(min-width:1101px){
+.cx-content{padding-top:0}
+.hero{height:96px;padding:12px 18px}
+.hero-icon{width:58px;height:58px;font-size:27px}
+.hero h1{font-size:27px;margin:0 0 3px}
+.hero p{font-size:11px;margin:0}
+.period{height:44px}
+.period button{height:32px;min-width:110px;font-size:11px}
+.datebox{padding:8px 14px;font-size:11px;margin-left:12px}
+.export{padding:8px 15px;font-size:11px}
+.cards{gap:8px}
+.card{min-height:78px;padding:9px 11px}
+.ci{width:46px;height:46px;min-width:46px;font-size:21px;margin-right:10px}
+.card small{font-size:10px}
+.card em{font-size:9px;margin:2px 0}
+.card strong{font-size:18px}
+.month-title{font-size:16px;margin:10px 0 6px}
+}
