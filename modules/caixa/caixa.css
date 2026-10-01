@@ -278,3 +278,14 @@ body{padding-left:200px}
 .workspace.vales-mode .collect-kpis>div{min-height:40px!important;padding:5px 8px!important}.workspace.vales-mode .rh-kpis{margin-top:4px!important}.workspace.vales-mode .rh-kpis>span{min-height:34px!important;padding:4px 8px!important}
 .workspace.vales-mode .collect-table-title{margin-top:7px!important;margin-bottom:4px!important}.workspace.vales-mode .collect-table-title input{padding:6px 8px!important}.workspace.vales-mode .collect-table th{padding:6px 5px!important}.workspace.vales-mode .collect-table td{padding:5px!important}.workspace.vales-mode .collect-actions{margin-top:6px!important}
 }
+
+/* Igualar os cards de detalhes à altura dos cards da Lista de Coletas */
+@media(min-width:1101px){
+.workspace.vales-mode .collect-kpis{height:50px!important;gap:0!important}
+.workspace.vales-mode .collect-kpis>div{height:50px!important;min-height:50px!important;padding:6px 10px!important;box-sizing:border-box!important}
+.workspace.vales-mode .rh-kpis{height:50px!important;margin-top:4px!important;gap:0!important}
+.workspace.vales-mode .rh-kpis>span{height:50px!important;min-height:50px!important;padding:6px 10px!important;box-sizing:border-box!important}
+.workspace.vales-mode .collect-kpis small,.workspace.vales-mode .rh-kpis small,.workspace.vales-mode .rh-kpis em{font-size:8px!important;line-height:1.05!important}
+.workspace.vales-mode .collect-kpis b{font-size:11px!important;line-height:1.05!important}
+.workspace.vales-mode .rh-kpis b{font-size:15px!important;line-height:1!important}
+}
