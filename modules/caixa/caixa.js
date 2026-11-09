@@ -131,7 +131,7 @@ function od(){let d=new Date(),p=new Intl.DateTimeFormat("en-CA",{timeZone:"Amer
       const qtd=ehResumo?Math.max(3,...dados.map(l=>l.length)):8;
       plan.columns=Array.from({length:qtd},(_,j)=>({width:ehResumo?[38,26,22][j]||18:origem["!cols"]?.[j]?.wch||17}));
       plan.getRow(1).height=23;
-      for(const cel of plan.getRow(1).cells){
+      for(const cel of [plan.getRow(1).getCell(1),plan.getRow(1).getCell(2)]){
         cel.fill={type:"pattern",pattern:"solid",fgColor:{argb:corMarrom}};
         cel.font={name:"Calibri",size:12,bold:true,color:{argb:"FFFFFFFF"}};
       }
