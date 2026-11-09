@@ -92,7 +92,7 @@ function od(){let d=new Date(),p=new Intl.DateTimeFormat("en-CA",{timeZone:"Amer
     const wsResumo=XLSX.utils.aoa_to_sheet(resumo);wsResumo["!cols"]=[{wch:35},{wch:27},{wch:20}];
     for(let i=11;i<=15;i++){const cel=wsResumo["C"+i];if(cel)cel.z='"R$" #,##0.00';}
     XLSX.utils.book_append_sheet(wb,wsResumo,"RESUMO");
-    const colunas=["Data operacional","Data documento","Categoria","Número do recibo","Colaborador","Função","Motivo","Valor (R$)"];
+    const colunas=["Data operacional","Data documento","Categoria","Recibo","Colaborador","Função","Motivo","Valor (R$)"];
     const dataBR=v=>{
       const str=String(v||"").slice(0,10);
       return /^\d{4}-\d{2}-\d{2}$/.test(str)?str.slice(8,10)+"/"+str.slice(5,7)+"/"+str.slice(0,4):str;
