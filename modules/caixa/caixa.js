@@ -117,7 +117,54 @@ function od(){let d=new Date(),p=new Intl.DateTimeFormat("en-CA",{timeZone:"Amer
       const itens=filtrados.filter(x=>x.categoria===c);
       if(itens.length)montar(itens,nome);
     }
-    XLSX.writeFile(wb,"Caixa-Coco-Bambu-"+base+"-"+periodo+".xlsx");
+    // ExcelJS aplica estilos reais no arquivo XLSX; SheetJS permanece para importação.
+    if(typeof ExcelJS==="undefined")throw new Error("Biblioteca de formatação Excel não carregada. Atualize a página e tente novamente.");
+    const excel=new ExcelJS.Workbook();
+    const borda={top:{style:"thin",color:{argb:"FFFF6500"}},left:{style:"thin",color:{argb:"FFFF6500"}},bottom:{style:"thin",color:{argb:"FFFF6500"}},right:{style:"thin",color:{argb:"FFFF6500"}}};
+    const corMarrom="FF994600",corLaranja="FFFF6500";
+    for(const aba of wb.SheetNames){
+      const origem=wb.Sheets[aba];
+      const dados=XLSX.utils.sheet_to_json(origem,{header:1,defval:"",raw:true});
+      const plan=excel.addWorksheet(aba,{views:[{state:"frozen",ySplit:5}]});
+      for(const linha of dados)plan.addRow(linha);
+      const ehResumo=aba==="RESUMO";
+      const qtd=ehResumo?Math.max(3,...dados.map(l=>l.length)):8;
+      plan.columns=Array.from({length:qtd},(_,j)=>({width:ehResumo?[38,26,22][j]||18:origem["!cols"]?.[j]?.wch||17}));
+      plan.getRow(1).height=23;
+      for(const cel of plan.getRow(1).cells){
+        cel.fill={type:"pattern",pattern:"solid",fgColor:{argb:corMarrom}};
+        cel.font={name:"Calibri",size:12,bold:true,color:{argb:"FFFFFFFF"}};
+      }
+      if(ehResumo){
+        for(let n=2;n<=plan.rowCount;n++){
+          const row=plan.getRow(n);
+          if(n===2||n===3)for(let j=1;j<=2;j++){const c=row.getCell(j);c.border=borda;}
+          if(n>=11&&n<=15){const c=row.getCell(3);if(typeof c.value==="number")c.numFmt='"R$" #,##0.00';}
+        }
+      }else{
+        const cab=plan.getRow(5);cab.height=25;
+        for(let j=1;j<=8;j++){
+          const c=cab.getCell(j);c.fill={type:"pattern",pattern:"solid",fgColor:{argb:corMarrom}};
+          c.font={name:"Calibri",size:11,bold:true,color:{argb:"FFFFFFFF"}};
+          c.alignment={vertical:"middle",horizontal:"left"};c.border=borda;
+        }
+        for(let n=6;n<=plan.rowCount;n++){
+          const row=plan.getRow(n);row.height=20;
+          for(let j=1;j<=8;j++){
+            const c=row.getCell(j);c.border=borda;
+            c.font={name:"Calibri",size:11,color:{argb:"FF111111"},bold:n===plan.rowCount};
+            c.alignment={vertical:"middle",horizontal:j===8?"right":"left"};
+          }
+          const valor=row.getCell(8);
+          if(typeof valor.value==="number")valor.numFmt='"R$" #,##0.00';
+        }
+        plan.autoFilter={from:{row:5,column:1},to:{row:5,column:8}};
+      }
+    }
+    const buffer=await excel.xlsx.writeBuffer();
+    const url=URL.createObjectURL(new Blob([buffer],{type:"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"}));
+    const link=document.createElement("a");link.href=url;link.download="Caixa-Coco-Bambu-"+base+"-"+periodo+".xlsx";document.body.appendChild(link);link.click();link.remove();
+    setTimeout(()=>URL.revokeObjectURL(url),60000);
   }catch(e){console.error("Exportação Excel:",e);alert("Não foi possível exportar: "+e.message);}
   finally{if(botao){botao.disabled=false;botao.textContent="⇩  Exportar Excel";}}
 }
