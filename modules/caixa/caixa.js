@@ -93,7 +93,7 @@ function od(){let d=new Date(),p=new Intl.DateTimeFormat("en-CA",{timeZone:"Amer
     const colunas=["Data operacional","Data documento","Categoria","Colaborador","Função","Motivo","Número do recibo","Valor (R$)","Status","Origem","Recebido em","ID do lançamento"];
     const montar=(itens,nome)=>{
       const linhas=[["GESTÃO COCO BAMBU | "+nome],["Período",tituloPeriodo],["Registros",itens.length],[],colunas];
-      for(const x of itens)linhas.push([x.data_operacional||"",x.data_documento||"",cat[x.categoria]||x.categoria,x.colaborador_nome_extraido||"",funcaoDe(x),"",numerosExportados.get(x.id)||"",Number(x.valor_extraido||0),String(x.status||"").replaceAll("_"," "),x.origem||"",x.data_hora_recebimento?new Date(x.data_hora_recebimento).toLocaleString("pt-BR"):"",x.id]);
+      for(const x of itens)linhas.push([x.data_operacional||"",x.data_documento||"",cat[x.categoria]||x.categoria,x.colaborador_nome_extraido||"",funcaoDe(x),["freelance","dobra","folga"].includes(x.categoria)?"Reforçar Setor":"",numerosExportados.get(x.id)||"",Number(x.valor_extraido||0),String(x.status||"").replaceAll("_"," "),x.origem||"",x.data_hora_recebimento?new Date(x.data_hora_recebimento).toLocaleString("pt-BR"):"",x.id]);
       linhas.push(["TOTAL","","","","","","",itens.reduce((n,x)=>n+Number(x.valor_extraido||0),0)]);
       const ws=XLSX.utils.aoa_to_sheet(linhas);
       ws["!cols"]=[{wch:19},{wch:19},{wch:21},{wch:39},{wch:26},{wch:23},{wch:19},{wch:17},{wch:24},{wch:15},{wch:23},{wch:39}];
