@@ -17,7 +17,7 @@ async function carregarNumerosRecibos(registros){
 }
 let efetivos=new Map();
 const chaveNome=n=>String(n||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toUpperCase().replace(/[^A-Z0-9 ]/g," ").replace(/\s+/g," ").trim();
-function funcaoDe(x){const nome=chaveNome(x.colaborador_nome_extraido);const chave=(nome==="YTALO GABRIEL PINTO DE SOUZA"||nome==="ITALO GABRIEL PINTO DE SOUZA")?"YTALO GABRIEL PINTO DE SOUZA":nome;const aliases={"WALLYSON FERNANDES DA SILVA":"WALLYSON FERNANDES SILVA","MARLON SILVA ACCIOLY DE SOUZA":"MARLON DA SILVA ACCIOLY DE SOUZA"};return efetivos.get(aliases[chave]||chave)||"";}
+function funcaoDe(x){const nome=chaveNome(x.colaborador_nome_extraido);const chave=(nome==="YTALO GABRIEL PINTO DE SOUZA"||nome==="ITALO GABRIEL PINTO DE SOUZA")?"YTALO GABRIEL PINTO DE SOUZA":nome;const aliases={"WALLYSON FERNANDES DA SILVA":"WALLYSON FERNANDES SILVA","MARLON SILVA ACCIOLY DE SOUZA":"MARLON DA SILVA ACCIOLY DE SOUZA","JOSE EMERSOM DA SILVA":"JOSE EMERSON DA SILVA"};return efetivos.get(aliases[chave]||chave)||"";}
 async function carregarEfetivos(){
  const {data,error}=await sb.from("caixa_efetivos").select("nome,nome_chave,funcao").order("nome");
  if(error){console.error("Cadastro efetivos:",error);return;}
