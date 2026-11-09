@@ -63,6 +63,8 @@ function od(){let d=new Date(),p=new Intl.DateTimeFormat("en-CA",{timeZone:"Amer
   if(botao){botao.disabled=true;botao.textContent="Preparando Excel...";}
   try{
     if(typeof XLSX==="undefined")throw new Error("Biblioteca Excel não carregada.");
+    await carregarEfetivos();
+    if(!efetivos.size)throw new Error("O cadastro de efetivos não foi carregado. Verifique o acesso ao Supabase e tente novamente.");
     // Paginação independente dos 500 registros exibidos na tela.
     const registros=[];
     const campos="id,categoria,origem,data_hora_recebimento,data_operacional,data_documento,colaborador_nome_extraido,valor_extraido,status";
@@ -96,7 +98,12 @@ function od(){let d=new Date(),p=new Intl.DateTimeFormat("en-CA",{timeZone:"Amer
       for(const x of itens)linhas.push([x.data_operacional||"",x.data_documento||"",cat[x.categoria]||x.categoria,x.colaborador_nome_extraido||"",funcaoDe(x),["freelance","dobra","folga"].includes(x.categoria)?"Reforçar Setor":"",numerosExportados.get(x.id)||"",Number(x.valor_extraido||0),String(x.status||"").replaceAll("_"," "),x.origem||"",x.data_hora_recebimento?new Date(x.data_hora_recebimento).toLocaleString("pt-BR"):"",x.id]);
       linhas.push(["TOTAL","","","","","","",itens.reduce((n,x)=>n+Number(x.valor_extraido||0),0)]);
       const ws=XLSX.utils.aoa_to_sheet(linhas);
-      ws["!cols"]=[{wch:19},{wch:19},{wch:21},{wch:39},{wch:26},{wch:23},{wch:19},{wch:17},{wch:24},{wch:15},{wch:23},{wch:39}];
+      const largurasMin=[17,16,11,18,12,15,17,12,12,10,17,18];
+      const largurasMax=[19,19,14,38,29,20,19,17,24,20,23,38];
+      ws["!cols"]=colunas.map((cab,j)=>{
+        const conteudos=[cab,...linhas.slice(5,-1).map(l=>String(l[j]??""))];
+        return {wch:Math.max(largurasMin[j],Math.min(largurasMax[j],Math.max(...conteudos.map(v=>v.length))+2))};
+      });
       ws["!autofilter"]={ref:"A5:L"+(5+itens.length)};
       for(let i=6;i<=6+itens.length;i++){const cel=ws["H"+i];if(cel)cel.z='"R$" #,##0.00';}
       XLSX.utils.book_append_sheet(wb,ws,nome);
