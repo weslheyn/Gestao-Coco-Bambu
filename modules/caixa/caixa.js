@@ -92,19 +92,23 @@ function od(){let d=new Date(),p=new Intl.DateTimeFormat("en-CA",{timeZone:"Amer
     const wsResumo=XLSX.utils.aoa_to_sheet(resumo);wsResumo["!cols"]=[{wch:35},{wch:27},{wch:20}];
     for(let i=11;i<=15;i++){const cel=wsResumo["C"+i];if(cel)cel.z='"R$" #,##0.00';}
     XLSX.utils.book_append_sheet(wb,wsResumo,"RESUMO");
-    const colunas=["Data operacional","Data documento","Categoria","Colaborador","Função","Motivo","Número do recibo","Valor (R$)","Status","Origem","Recebido em","ID do lançamento"];
+    const colunas=["Data operacional","Data documento","Categoria","Colaborador","Função","Motivo","Número do recibo","Valor (R$)","Recebido em"];
+    const dataBR=v=>{
+      const str=String(v||"").slice(0,10);
+      return /^\d{4}-\d{2}-\d{2}$/.test(str)?str.slice(8,10)+"/"+str.slice(5,7)+"/"+str.slice(0,4):str;
+    };
     const montar=(itens,nome)=>{
       const linhas=[["GESTÃO COCO BAMBU | "+nome],["Período",tituloPeriodo],["Registros",itens.length],[],colunas];
-      for(const x of itens)linhas.push([x.data_operacional||"",x.data_documento||"",cat[x.categoria]||x.categoria,x.colaborador_nome_extraido||"",funcaoDe(x),["freelance","dobra","folga"].includes(x.categoria)?"Reforçar Setor":"",numerosExportados.get(x.id)||"",Number(x.valor_extraido||0),String(x.status||"").replaceAll("_"," "),x.origem||"",x.data_hora_recebimento?new Date(x.data_hora_recebimento).toLocaleString("pt-BR"):"",x.id]);
+      for(const x of itens)linhas.push([dataBR(x.data_operacional),dataBR(x.data_documento),cat[x.categoria]||x.categoria,x.colaborador_nome_extraido||"",funcaoDe(x),["freelance","dobra","folga"].includes(x.categoria)?"Reforçar Setor":"",numerosExportados.get(x.id)||"",Number(x.valor_extraido||0),x.data_hora_recebimento?new Date(x.data_hora_recebimento).toLocaleString("pt-BR"):""]);
       linhas.push(["TOTAL","","","","","","",itens.reduce((n,x)=>n+Number(x.valor_extraido||0),0)]);
       const ws=XLSX.utils.aoa_to_sheet(linhas);
-      const largurasMin=[17,16,11,18,12,15,17,12,12,10,17,18];
-      const largurasMax=[19,19,14,38,29,20,19,17,24,20,23,38];
+      const largurasMin=[16,16,11,18,12,15,17,12,20];
+      const largurasMax=[19,19,14,38,29,20,19,17,24];
       ws["!cols"]=colunas.map((cab,j)=>{
         const conteudos=[cab,...linhas.slice(5,-1).map(l=>String(l[j]??""))];
         return {wch:Math.max(largurasMin[j],Math.min(largurasMax[j],Math.max(...conteudos.map(v=>v.length))+2))};
       });
-      ws["!autofilter"]={ref:"A5:L"+(5+itens.length)};
+      ws["!autofilter"]={ref:"A5:I"+(5+itens.length)};
       for(let i=6;i<=6+itens.length;i++){const cel=ws["H"+i];if(cel)cel.z='"R$" #,##0.00';}
       XLSX.utils.book_append_sheet(wb,ws,nome);
     };
