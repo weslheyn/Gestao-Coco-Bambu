@@ -20,7 +20,7 @@ const chaveNome=n=>String(n||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"")
 function funcaoDe(x){return efetivos.get(chaveNome(x.colaborador_nome_extraido))||"";}
 async function carregarEfetivos(){
  const {data,error}=await sb.from("caixa_efetivos").select("nome,nome_chave,funcao").order("nome");
- if(error){console.error("Cadastro efetivos:",error);throw new Error("Não foi possível consultar as funções dos efetivos: "+error.message);}
+ if(error){console.error("Cadastro efetivos:",error);return;}
  efetivos=new Map((data||[]).map(x=>[x.nome_chave,x.funcao]));
 }
 async function importarEfetivos(){
@@ -63,7 +63,6 @@ function od(){let d=new Date(),p=new Intl.DateTimeFormat("en-CA",{timeZone:"Amer
   if(botao){botao.disabled=true;botao.textContent="Preparando Excel...";}
   try{
     if(typeof XLSX==="undefined")throw new Error("Biblioteca Excel não carregada.");
-    await carregarEfetivos();
     // Paginação independente dos 500 registros exibidos na tela.
     const registros=[];
     const campos="id,categoria,origem,data_hora_recebimento,data_operacional,data_documento,colaborador_nome_extraido,valor_extraido,status";
@@ -97,14 +96,7 @@ function od(){let d=new Date(),p=new Intl.DateTimeFormat("en-CA",{timeZone:"Amer
       for(const x of itens)linhas.push([x.data_operacional||"",x.data_documento||"",cat[x.categoria]||x.categoria,x.colaborador_nome_extraido||"",funcaoDe(x),["freelance","dobra","folga"].includes(x.categoria)?"Reforçar Setor":"",numerosExportados.get(x.id)||"",Number(x.valor_extraido||0),String(x.status||"").replaceAll("_"," "),x.origem||"",x.data_hora_recebimento?new Date(x.data_hora_recebimento).toLocaleString("pt-BR"):"",x.id]);
       linhas.push(["TOTAL","","","","","","",itens.reduce((n,x)=>n+Number(x.valor_extraido||0),0)]);
       const ws=XLSX.utils.aoa_to_sheet(linhas);
-      // Dimensionamento baseado nos dados, sem alargar colunas por causa do título.
-      const minimos=[17,16,11,19,13,15,17,12,12,10,17,18];
-      const maximos=[19,19,14,38,29,22,19,17,25,22,23,38];
-      ws["!cols"]=colunas.map((titulo,j)=>{
-        const valores=[titulo,...linhas.slice(5,-1).map(l=>String(l[j]??""))];
-        const largura=Math.max(minimos[j],Math.min(maximos[j],Math.max(...valores.map(v=>v.length))+2));
-        return {wch:largura};
-      });
+      ws["!cols"]=[{wch:19},{wch:19},{wch:21},{wch:39},{wch:26},{wch:23},{wch:19},{wch:17},{wch:24},{wch:15},{wch:23},{wch:39}];
       ws["!autofilter"]={ref:"A5:L"+(5+itens.length)};
       for(let i=6;i<=6+itens.length;i++){const cel=ws["H"+i];if(cel)cel.z='"R$" #,##0.00';}
       XLSX.utils.book_append_sheet(wb,ws,nome);
