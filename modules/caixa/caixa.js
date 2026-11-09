@@ -17,7 +17,7 @@ async function carregarNumerosRecibos(registros){
 }
 let efetivos=new Map();
 const chaveNome=n=>String(n||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toUpperCase().replace(/[^A-Z0-9 ]/g," ").replace(/\s+/g," ").trim();
-function funcaoDe(x){const nome=chaveNome(x.colaborador_nome_extraido);const chave=(nome==="YTALO GABRIEL PINTO DE SOUZA"||nome==="ITALO GABRIEL PINTO DE SOUZA")?"YTALLO GABRIEL PINTO DE SOUZA":nome;return efetivos.get(chave)||"";}
+function funcaoDe(x){const nome=chaveNome(x.colaborador_nome_extraido);const chave=(nome==="YTALO GABRIEL PINTO DE SOUZA"||nome==="ITALO GABRIEL PINTO DE SOUZA")?"ITALO GABRIEL PINTO DE SOUZA":nome;return efetivos.get(chave)||"";}
 async function carregarEfetivos(){
  const {data,error}=await sb.from("caixa_efetivos").select("nome,nome_chave,funcao").order("nome");
  if(error){console.error("Cadastro efetivos:",error);return;}
